@@ -95,3 +95,43 @@ function enviarWhatsApp() {
   const url = `https://wa.me/?text=${mensaje}`;
   window.open(url, '_blank');
 }
+
+function agregarAlCarrito(item) {
+  carrito.push(item);
+  actualizarCarrito();
+  document.getElementById('carrito').classList.remove('oculto');
+  document.getElementById('carrito-minimizado').classList.add('oculto');
+}
+
+function actualizarCarrito() {
+  const lista = document.getElementById('lista-carrito');
+  lista.innerHTML = '';
+  let total = 0;
+  carrito.forEach(prod => {
+    const li = document.createElement('li');
+    li.textContent = `${prod.nombre} - $${prod.precio}`;
+    lista.appendChild(li);
+    total += prod.precio || 0;
+  });
+  document.getElementById('total').textContent = total.toFixed(2);
+  document.getElementById('mini-total').textContent = total.toFixed(2);
+  document.getElementById('mini-cantidad').textContent = carrito.length;
+  if (carrito.length === 0) {
+    document.getElementById('carrito').classList.add('oculto');
+    document.getElementById('carrito-minimizado').classList.add('oculto');
+  } else {
+    document.getElementById('carrito-minimizado').classList.remove('oculto');
+  }
+}
+
+function enviarWhatsApp() {
+  let mensaje = 'Mi pedido:%0A';
+  let total = 0;
+  carrito.forEach(prod => {
+    mensaje += `- ${prod.nombre} ($${prod.precio})%0A`;
+    total += prod.precio || 0;
+  });
+  mensaje += `Total: $${total.toFixed(2)}`;
+  const url = `https://wa.me/?text=${mensaje}`;
+  window.open(url, '_blank');
+}
