@@ -67,9 +67,16 @@ function actualizarCarrito() {
   const lista = document.getElementById('lista-carrito');
   lista.innerHTML = '';
   let total = 0;
-  carrito.forEach(prod => {
+  carrito.forEach((prod, index) => {
     const li = document.createElement('li');
     li.textContent = `${prod.nombre} - $${prod.precio}`;
+
+    const btnEliminar = document.createElement('button');
+    btnEliminar.textContent = '❌';
+    btnEliminar.className = 'remove-item';
+    btnEliminar.addEventListener('click', () => eliminarDelCarrito(index));
+
+    li.appendChild(btnEliminar);
     lista.appendChild(li);
     total += prod.precio || 0;
   });
@@ -82,6 +89,11 @@ function actualizarCarrito() {
   } else {
     document.getElementById('carrito-minimizado').classList.remove('oculto');
   }
+}
+
+function eliminarDelCarrito(index) {
+  carrito.splice(index, 1);
+  actualizarCarrito();
 }
 
 function enviarWhatsApp() {
