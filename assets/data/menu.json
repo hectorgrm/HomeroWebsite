@@ -3,29 +3,34 @@
     {
       "nombre": "D'oh Burger",
       "descripcion": "Carne jugosa, doble queso, y bacon crujiente.",
-      "imagen": "assets/img/burger.png"
-    },
+      "imagen": "assets/img/burger.png",
+      "precio": 80
+      },
     {
       "nombre": "Combo Homero",
       "descripcion": "Burger + Hotdog + refresco grande. ¡Boom!",
-      "imagen": "assets/img/burger.png"
-    }
+      "imagen": "assets/img/burger.png",
+      "precio": 120
+      }
   ],
   "hotdogs": [
     {
       "nombre": "Donut Dog",
       "descripcion": "Hotdog estilo Springfield con aderezo rosa.",
-      "imagen": "assets/img/hotdog.png"
-    },
+      "imagen": "assets/img/hotdog.png",
+      "precio": 50
+      },
     {
       "nombre": "Hot Dog",
       "descripcion": "Hotdog estilo Homero con tocino",
-      "imagen": "assets/img/hotdog.png"
-    },    {
+      "imagen": "assets/img/hotdog.png",
+      "precio": 40
+      },    {
       "nombre": "Hot Dog",
       "descripcion": "Hotdog estilo Homero con tocino",
-      "imagen": "assets/img/hotdog.png"
-    }
+      "imagen": "assets/img/hotdog.png",
+      "precio": 40
+      }
     
   ]
 }

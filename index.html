@@ -103,6 +103,57 @@
     a.boton:hover {
         background-color: #038506;
     }
+    .menu-items {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+    .item {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        width: 240px;
+        padding: 15px;
+        box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+    .item img {
+        width: 100%;
+        border-radius: 10px;
+    }
+    .item button {
+        background-color: #14c504;
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+    .item button:hover {
+        background-color: #038506;
+    }
+    #carrito, #carrito-minimizado {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #fff6d5;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        z-index: 1000;
+    }
+    #carrito-minimizado {
+        cursor: pointer;
+    }
+    .oculto {
+        display: none;
+    }
+    .fade {
+        transition: opacity 0.3s;
+    }
     
 
     
@@ -156,11 +207,21 @@
                 <p><a href="https://wa.me/12345234" class="boton"> Pedir por WhatsApp</a></p>
     </section>
 
+    <div id="carrito" class="oculto fade">
+        <h3>🛒 Carrito de Compras</h3>
+        <ul id="lista-carrito"></ul>
+        <p><strong>Total:</strong> $<span id="total">0.00</span></p>
+        <button id="enviar-pedido"> 💬Enviar Pedido por WhatsApp</button>
+        <button id="vaciar-carrito">🗑️ Vaciar Carrito</button>
+    </div>
+
+    <div id="carrito-minimizado" class="oculto fade">
+        🛒 Total: $<span id="mini-total">0.00</span> | <span id="mini-cantidad">0</span> productos
+    </div>
+
     <footer>
         <p>&copy; 2025 Homeros Burgers. Todos los derechos reservados.</p>
     </footer>
 <script src="assets/js/menu.js"></script>
-
-    <script src="assets/js/menu.js"></script>
 </body>
 </html>
