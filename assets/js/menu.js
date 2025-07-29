@@ -16,10 +16,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('enviar-pedido').addEventListener('click', enviarWhatsApp);
 
-  document.getElementById('carrito-minimizado').addEventListener('click', () => {
-    document.getElementById('carrito').classList.remove('oculto');
-    document.getElementById('carrito-minimizado').classList.add('oculto');
-  });
+document.getElementById('carrito-minimizado').addEventListener('click', (e) => {
+  e.stopPropagation();
+  document.getElementById('carrito').classList.remove('oculto');
+  document.getElementById('carrito-minimizado').classList.add('oculto');
+});
+
+document.addEventListener('click', (e) => {
+  const car = document.getElementById('carrito');
+  const mini = document.getElementById('carrito-minimizado');
+  if (!car.classList.contains('oculto') && !car.contains(e.target)) {
+    car.classList.add('oculto');
+    mini.classList.remove('oculto');
+  }
+});
+
+window.addEventListener('scroll', () => {
+  const car = document.getElementById('carrito');
+  const mini = document.getElementById('carrito-minimizado');
+  if (!car.classList.contains('oculto')) {
+    car.classList.add('oculto');
+    mini.classList.remove('oculto');
+  }
+});
 });
 
 function renderItems(items, container) {
@@ -42,9 +61,12 @@ function renderItems(items, container) {
     const precio = document.createElement('p');
     precio.textContent = `$${item.precio}`;
 
-    const btn = document.createElement('button');
-    btn.textContent = 'Agregar a Orden';
-    btn.addEventListener('click', () => agregarAlCarrito(item));
+  const btn = document.createElement('button');
+  btn.textContent = 'Agregar a Orden';
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    agregarAlCarrito(item);
+  });
 
     div.appendChild(img);
     div.appendChild(h3);
