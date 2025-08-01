@@ -169,6 +169,21 @@
         margin-left: 10px;
         cursor: pointer;
     }
+
+    #whatsapp-button {
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        background-color: #25d366;
+        color: white;
+        padding: 15px;
+        border-radius: 50%;
+        text-decoration: none;
+        font-size: 24px;
+        display: none;
+        z-index: 1000;
+    }
+
     
 
     
@@ -234,9 +249,12 @@
         🛒 Total: $<span id="mini-total">0.00</span> | <span id="mini-cantidad">0</span> productos
     </div>
 
+    <a href="https://wa.me/12345234" id="whatsapp-button">💬</a>
+
     <footer>
         <p>&copy; 2025 Homeros Burgers. Todos los derechos reservados.</p>
     </footer>
 <script src="assets/js/menu.js"></script>
+<script src="assets/js/whatsapp.js"></script>
 </body>
 </html>
