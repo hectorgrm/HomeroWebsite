@@ -128,4 +128,6 @@ function enviarWhatsApp() {
   mensaje += `Total: $${total.toFixed(2)}`;
   const url = `https://wa.me/?text=${mensaje}`;
   window.open(url, '_blank');
+  carrito.length = 0;
+  actualizarCarrito();
 }
