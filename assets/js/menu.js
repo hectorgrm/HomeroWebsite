@@ -63,6 +63,9 @@ function renderItems(items, container) {
 
   const btn = document.createElement('button');
   btn.textContent = 'Agregar a Orden';
+  if (typeof window.storeOpen !== 'undefined' && !window.storeOpen) {
+    btn.disabled = true;
+  }
   btn.addEventListener('click', (e) => {
     e.stopPropagation();
     agregarAlCarrito(item);
