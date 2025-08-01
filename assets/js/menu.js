@@ -61,7 +61,13 @@ function renderItems(items, container) {
     const precio = document.createElement('p');
     precio.textContent = `$${item.precio}`;
 
-  if (typeof window.storeOpen === 'undefined' || window.storeOpen) {
+
+
+    div.appendChild(img);
+    div.appendChild(h3);
+    div.appendChild(desc);
+    div.appendChild(precio);
+      if (typeof window.storeOpen === 'undefined' || window.storeOpen) {
     const btn = document.createElement('button');
     btn.textContent = 'Agregar a Orden';
     btn.addEventListener('click', (e) => {
@@ -70,11 +76,6 @@ function renderItems(items, container) {
     });
     div.appendChild(btn);
   }
-
-    div.appendChild(img);
-    div.appendChild(h3);
-    div.appendChild(desc);
-    div.appendChild(precio);
 
     container.appendChild(div);
   });
