@@ -1,4 +1,5 @@
 const carrito = [];
+const cartEnabled = false; // disable ordering functionality
 
 document.addEventListener('DOMContentLoaded', () => {
   fetch('assets/data/menu.json')
@@ -9,36 +10,38 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(err => console.error('Error al cargar el menú', err));
 
-  document.getElementById('vaciar-carrito').addEventListener('click', () => {
-    carrito.length = 0;
-    actualizarCarrito();
-  });
+  if (cartEnabled) {
+    document.getElementById('vaciar-carrito').addEventListener('click', () => {
+      carrito.length = 0;
+      actualizarCarrito();
+    });
 
-  document.getElementById('enviar-pedido').addEventListener('click', enviarWhatsApp);
+    document.getElementById('enviar-pedido').addEventListener('click', enviarWhatsApp);
 
-document.getElementById('carrito-minimizado').addEventListener('click', (e) => {
-  e.stopPropagation();
-  document.getElementById('carrito').classList.remove('oculto');
-  document.getElementById('carrito-minimizado').classList.add('oculto');
-});
+    document.getElementById('carrito-minimizado').addEventListener('click', (e) => {
+      e.stopPropagation();
+      document.getElementById('carrito').classList.remove('oculto');
+      document.getElementById('carrito-minimizado').classList.add('oculto');
+    });
 
-document.addEventListener('click', (e) => {
-  const car = document.getElementById('carrito');
-  const mini = document.getElementById('carrito-minimizado');
-  if (!car.classList.contains('oculto') && !car.contains(e.target)) {
-    car.classList.add('oculto');
-    mini.classList.remove('oculto');
+    document.addEventListener('click', (e) => {
+      const car = document.getElementById('carrito');
+      const mini = document.getElementById('carrito-minimizado');
+      if (!car.classList.contains('oculto') && !car.contains(e.target)) {
+        car.classList.add('oculto');
+        mini.classList.remove('oculto');
+      }
+    });
+
+    window.addEventListener('scroll', () => {
+      const car = document.getElementById('carrito');
+      const mini = document.getElementById('carrito-minimizado');
+      if (!car.classList.contains('oculto')) {
+        car.classList.add('oculto');
+        mini.classList.remove('oculto');
+      }
+    });
   }
-});
-
-window.addEventListener('scroll', () => {
-  const car = document.getElementById('carrito');
-  const mini = document.getElementById('carrito-minimizado');
-  if (!car.classList.contains('oculto')) {
-    car.classList.add('oculto');
-    mini.classList.remove('oculto');
-  }
-});
 });
 
 function renderItems(items, container) {
@@ -61,24 +64,25 @@ function renderItems(items, container) {
     const precio = document.createElement('p');
     precio.textContent = `$${item.precio}`;
 
-  const btn = document.createElement('button');
-  btn.textContent = 'Agregar a Orden';
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    agregarAlCarrito(item);
-  });
-
     div.appendChild(img);
     div.appendChild(h3);
     div.appendChild(desc);
     div.appendChild(precio);
-    div.appendChild(btn);
-
-    container.appendChild(div);
+    if (cartEnabled) {
+      const btn = document.createElement('button');
+      btn.textContent = 'Agregar a Orden';
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        agregarAlCarrito(item);
+      });
+      div.appendChild(btn);
+    }
+  container.appendChild(div);
   });
 }
 
 function agregarAlCarrito(item) {
+  if (!cartEnabled) return;
   carrito.push(item);
   actualizarCarrito();
   document.getElementById('carrito').classList.remove('oculto');
@@ -86,6 +90,7 @@ function agregarAlCarrito(item) {
 }
 
 function actualizarCarrito() {
+  if (!cartEnabled) return;
   const lista = document.getElementById('lista-carrito');
   lista.innerHTML = '';
   let total = 0;
@@ -114,11 +119,13 @@ function actualizarCarrito() {
 }
 
 function eliminarDelCarrito(index) {
+  if (!cartEnabled) return;
   carrito.splice(index, 1);
   actualizarCarrito();
 }
 
 function enviarWhatsApp() {
+  if (!cartEnabled) return;
   let mensaje = 'Mi pedido:%0A';
   let total = 0;
   carrito.forEach(prod => {
