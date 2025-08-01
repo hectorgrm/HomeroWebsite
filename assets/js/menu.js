@@ -61,21 +61,20 @@ function renderItems(items, container) {
     const precio = document.createElement('p');
     precio.textContent = `$${item.precio}`;
 
-  const btn = document.createElement('button');
-  btn.textContent = 'Agregar a Orden';
-  if (typeof window.storeOpen !== 'undefined' && !window.storeOpen) {
-    btn.disabled = true;
+  if (typeof window.storeOpen === 'undefined' || window.storeOpen) {
+    const btn = document.createElement('button');
+    btn.textContent = 'Agregar a Orden';
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      agregarAlCarrito(item);
+    });
+    div.appendChild(btn);
   }
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    agregarAlCarrito(item);
-  });
 
     div.appendChild(img);
     div.appendChild(h3);
     div.appendChild(desc);
     div.appendChild(precio);
-    div.appendChild(btn);
 
     container.appendChild(div);
   });

@@ -1,10 +1,11 @@
-function isStoreOpen() {
-  const status = localStorage.getItem('storeStatus');
-  return status !== 'closed';
+function fetchStoreStatus() {
+  return fetch('data/config.json')
+    .then(r => r.json())
+    .then(cfg => cfg.tiendaAbierta !== false)
+    .catch(() => true);
 }
 
-function applyStoreStatus() {
-  const open = isStoreOpen();
+function applyStoreStatus(open) {
   const openSec = document.querySelector('.estado-open');
   const closedSec = document.querySelector('.estado-cerrado');
   if (openSec) openSec.style.display = open ? 'block' : 'none';
@@ -22,4 +23,6 @@ function applyStoreStatus() {
   window.storeOpen = open;
 }
 
-document.addEventListener('DOMContentLoaded', applyStoreStatus);
+document.addEventListener('DOMContentLoaded', () => {
+  fetchStoreStatus().then(applyStoreStatus);
+});
