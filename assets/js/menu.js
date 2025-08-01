@@ -1,13 +1,17 @@
 const carrito = [];
 
 document.addEventListener('DOMContentLoaded', () => {
-  fetch('assets/data/menu.json')
-    .then(response => response.json())
+  fetchStoreStatus()
+    .then(status => {
+      window.storeOpen = status;
+      applyStoreStatus(status);
+      return fetch('assets/data/menu.json').then(r => r.json());
+    })
     .then(data => {
       renderItems(data.burgers, document.querySelector('#burgers .menu-items'));
       renderItems(data.hotdogs, document.querySelector('#hotdogs .menu-items'));
     })
-    .catch(err => console.error('Error al cargar el menú', err));
+    .catch(err => console.error('Error al cargar los datos', err));
 
   document.getElementById('vaciar-carrito').addEventListener('click', () => {
     carrito.length = 0;
